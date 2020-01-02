@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+        }
+
+        main {
+            padding: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .item {
+            display: flex;
+            margin: 10px;
+            align-items: flex-start
+        }
+
+        .image {
+            height: 320px;
+            width: auto;
+        }
+
+        .colors {
+            display: inline-table;
+            height: 100%;
+            width: 150px;
+            list-style: none;
+        }
+
+        .color {
+            display: table-row;
+            color: white;
+            vertical-align: middle;
+            line-height: 100%;
+            text-align: center;
+        }
+
+        .color span {
+            display: table-cell;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body>
+<main id="container"></main>
+<script src="dist/palette.min.js"></script>
+<script>
+    const image_paths = ['./images/baboon.bmp', './images/cornfield.bmp', './images/flowers.bmp'];
+    image_paths.forEach(function (path) {
+        let image = new Image();
+        image.src = path;
+        image.onload = function () {
+            let palette = new Palette(image);
+            let html = `<div class="item"><img src="${path}" class="image"><ul class="colors">`;
+            html += `<li class="color" style="background: ${palette.getVibrantColor()}"><span>VIBRANT</span></li>`;
+            html += `<li class="color" style="background: ${palette.getLightVibrantColor()}"><span>LIGHT_VIBRANT</span></li>`;
+            html += `<li class="color" style="background: ${palette.getDarkVibrantColor()}"><span>DARK_VIBRANT</span></li>`;
+            html += `<li class="color" style="background: ${palette.getMutedColor()}"><span>MUTED</span></li>`;
+            html += `<li class="color" style="background: ${palette.getLightMutedColor()}"><span>LIGHT_MUTED</span></li>`;
+            html += `<li class="color" style="background: ${palette.getDarkMutedColor()}"><span>DARK_MUTED</span></li>`;
+            html += '</ul></div>';
+            document.getElementById('container').innerHTML += html
+        };
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,1 @@
+module.exports = require('./src/palette.js').default;
